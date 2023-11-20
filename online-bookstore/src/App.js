@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import './App.css';
 import LoginPopup from './LoginPopup';
 import Button from 'react-bootstrap/Button';
-
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
@@ -13,8 +12,7 @@ function App() {
     <>
       <div className="App">
   
-        <Button variant="outline-primary" className='loginBtn' onClick={() => setShowLoginPopup(true)}>Sign in</Button>{' '}
-       
+        <Button variant="outline-primary" className='loginBtn' onClick={() => setShowLoginPopup(true)}>Login</Button>{' '}
         {showLoginPopup && <LoginPopup onClose={() => setShowLoginPopup(false)} />}
       </div>
       <div>

@@ -50,11 +50,13 @@
 .form-group input {
     width: 100%;
     padding: 16px;
-    font-size: 16px;
+    font-size: 20px;
     line-height: 24px;
     border: 1px solid #dfe1e5;
     border-radius: 4px;
     margin-bottom: 8px;
+    border-color: black;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 .forgot-email {
@@ -74,21 +76,25 @@
 }
 
 .create-account {
-    background: none;
-    border: none;
-    color: #1a73e8;
-    font-size: 14px;
-    cursor: pointer;
-    margin-bottom: 60px;
+    position: absolute;
+    bottom: 20%;
+    left: 35%;
 }
 
-.submit-button {
-    background-color: #1a73e8;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    padding: 10px 24px;
-    font-size: 14px;
-    cursor: pointer;
-    margin-bottom: 60px;
+.loginButton {
+    position: absolute;
+    bottom: 20%;
+    right: 35%;
+}
+
+.signupBtn {
+    position: absolute;
+    bottom: 20%;
+    right: 35%;
+}
+
+.backtoLogin{
+    position: absolute;
+    bottom: 20%;
+    left: 35%;
 }
