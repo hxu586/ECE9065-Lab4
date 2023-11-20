@@ -1,7 +1,12 @@
 const express = require('express');
 const axios = require('axios');
 const app = express();
-const port = 3000;
+const port = 4000;
+
+const mongoose = require('mongoose');
+mongoose.connect('mongodb+srv://averio7777:000511@cluster0.4dai9wf.mongodb.net/?retryWrites=true&w=majority')
+.then(() => console.log('Connected to MongoDB...'))
+.catch(err => console.error('Could not connect to MongoDB...', err));
 
 app.get('/api/books', async (req, res) => {
   try {
