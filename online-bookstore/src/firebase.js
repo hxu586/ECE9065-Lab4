@@ -1,17 +1,19 @@
-// src/firebase.js
-import firebase from 'firebase/app';
-import 'firebase/auth';
+import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-  projectId: "online-bookstore-90560",
-  storageBucket: "YOUR_PROJECT_ID.appspot.com",
-  messagingSenderId: "409040725481",
-  appId: "YOUR_APP_ID"
+    apiKey: "AIzaSyBdpXJBEKu3oie_oYyBNs0OefnYDVl_GIA",
+    authDomain: "online-bookstore-90560.firebaseapp.com",
+    projectId: "online-bookstore-90560",
+    storageBucket: "online-bookstore-90560.appspot.com",
+    messagingSenderId: "409040725481",
+    appId: "1:409040725481:web:02aed80c148808bd3c5778",
+    measurementId: "G-QLJHS38H2J"
 };
 
 // Initialize Firebase
-firebase.initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
 
-export default firebase;
+// Initialize Firebase Authentication and export
+const auth = getAuth(app);
+export { auth };

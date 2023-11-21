@@ -18,6 +18,7 @@
 }
 
 .login-content {
+    position: relative; /* This is necessary to position the close button absolutely within this container */
     background-color: #fff;
     padding: 20px;
     border-radius: 8px;
@@ -29,12 +30,13 @@
 
 .close-btn {
     position: absolute;
-    top: 15%;
-    right: 35%;
+    top: 0; /* Align to the top edge of .login-content */
+    right: 0; /* Align to the right edge of .login-content */
     border: none;
     background: transparent;
     font-size: 24px;
     cursor: pointer;
+    padding: 10px; /* Add padding to increase the clickable area */
 }
 
 .westernLogo {
@@ -77,24 +79,24 @@
 
 .create-account {
     position: absolute;
-    bottom: 20%;
-    left: 35%;
+    bottom: 10%;
+    left: 10%;
 }
 
 .loginButton {
     position: absolute;
-    bottom: 20%;
-    right: 35%;
+    bottom: 10%;
+    right: 10%;
 }
 
 .signupBtn {
     position: absolute;
-    bottom: 20%;
-    right: 35%;
+    bottom: 10%;
+    right: 10%;
 }
 
 .backtoLogin{
     position: absolute;
-    bottom: 20%;
-    left: 35%;
+    bottom: 10%;
+    left: 10%;
 }

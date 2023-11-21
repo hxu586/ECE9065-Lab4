@@ -1,45 +1,66 @@
-import React, { useState } from 'react';
 import './LoginPopup.css';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import westernLogo from './western_logo.webp';
 import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import axios from 'axios';
+import { auth } from './firebase'; // Adjust the path to your firebase.js
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
+
 
 const LoginPopup = ({ onClose }) => {
     const [isLoginView, setIsLoginView] = useState(true);
+    const [message, setMessage] = useState('');
+    const navigate = useNavigate();
 
     const handleLogin = async (event) => {
         event.preventDefault();
-        // Gather your form data
-        const username = event.target.username.value;
-        const password = event.target.password.value;
+        const email = event.target.elements.email.value;
+        const password = event.target.elements.password.value;
         try {
-            const response = await axios.post('/api/auth', { username, password });
-            // Handle response, close popup, etc.
+            await signInWithEmailAndPassword(auth, email, password);
+            // Login successful
+            console.log("success");
+            setMessage('Logged in successfully.'); // Set success message
+            setTimeout(() => {
+                setMessage(''); // Clear message after 3 seconds
+                onClose(); // Close the popup
+            }, 300);
+            navigate('/search'); // Navigate to the search page
         } catch (error) {
             console.error('Login failed:', error);
-            // Handle error
+            setMessage(`Login failed: ${error.message}`); // Set error message
         }
     };
+
+
     const handleRegister = async (event) => {
         event.preventDefault();
-        // Gather your form data
-        const username = event.target.username.value;
-        const password = event.target.password.value;
+        const email = event.target.elements.email.value;
+        const password = event.target.elements.password.value;
         try {
-            const response = await axios.post('/api/users', { username, password });
-            // Handle successful registration (e.g., show success message, close popup)
+            await createUserWithEmailAndPassword(auth, email, password);
+            // Registration successful
+            console.log("success");
+            setMessage('Registration successful. You can now log in.'); // Set success message
+            setTimeout(() => {
+                setMessage(''); // Clear message after 3 seconds
+                setIsLoginView(true); // Switch back to login view
+            }, 3000);
         } catch (error) {
             console.error('Registration failed:', error);
-            // Handle registration error (e.g., show error message)
+            setMessage(`Registration failed: ${error.message}`); // Set error message
         }
     };
+
+
 
     return (
         <div className="login-popup">
             <div className="login-content">
                 <span className="close-btn" onClick={onClose}>&times;</span>
                 <img src={westernLogo} alt="Western Logo" className="westernLogo" />
+                {message && <div className="message">{message}</div>}
 
                 {isLoginView ? (
                     <>
@@ -47,13 +68,13 @@ const LoginPopup = ({ onClose }) => {
                         <p>Use your User Account</p>
                         <form onSubmit={handleLogin}>
                             <div className="form-group">
-                                <input type="username" name="username" style={{ marginBottom: "30px" }} placeholder="username" />
-                                <input type="password" name="password" placeholder="password" />
+                                <input type="email" name="email" style={{ marginBottom: "30px" }} placeholder="Email" required />
+                                <input type="password" name="password" placeholder="password" required />
                                 <p className="forgot-email">Forgot username?</p>
                             </div>
                             <div className="form-group action-buttons">
-                                <Button variant="outline-primary" type="button" className="create-account" onClick={() => setIsLoginView(false)}>Create account</Button>
                                 <Button variant="outline-primary" type="submit" className="loginButton">Login</Button>
+                                <Button variant="outline-primary" type="button" className="create-account" onClick={() => setIsLoginView(false)}>Create account</Button>
                             </div>
                         </form>
                     </>
@@ -63,8 +84,8 @@ const LoginPopup = ({ onClose }) => {
                         <p>Register for a new account</p>
                         <form onSubmit={handleRegister}>
                             <div className="form-group">
-                                <input type="username" name="username" style={{ marginBottom: "30px" }} placeholder="5-20 characters username" />
-                                <input type="password" name="password" placeholder="at least 5 characters for password" />
+                                <input type="email" name="email" style={{ marginBottom: "30px" }} placeholder="Email" required />
+                                <input type="password" name="password" placeholder="at least 5 characters for password" required />
                             </div>
                             <div className="form-group action-buttons">
                                 <Button variant="outline-success" type="submit" className="signupBtn">Sign up</Button>
